@@ -1,1 +1,0 @@
-kando.kharani.blade.php
