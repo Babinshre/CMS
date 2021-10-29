@@ -18,18 +18,17 @@
                     <tr>
                         <td>
                             <img src="{{asset('storage/'.$post->image)}}" width="120px" alt="img">
-                            {{-- {{ $post->image }} --}}
                         </td>
                         <td>{{ $post->title }}</td>
-                            {{-- @if (!$post->trashed())
-                                <td><button class="btn btn-sm btn-info" type="submit">Edit</button></td>
-                            @endif --}}
+                            @if (!$post->trashed())
+                                <td><a type="button" href="{{ route('posts.edit',$post->id) }}" class="btn btn-sm btn-info" type="submit">Edit</a></td>
+                            @endif
                         <td>
                             <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-sm btn-danger" type="submit">delete
-                                    {{-- {{ $post->trashed() ? 'delete' : 'trash' }} --}}
+                                <button class="btn btn-sm btn-danger" type="submit">
+                                    {{ $post->trashed() ? 'delete' : 'trash' }}
                                 </button>
                             </form>
                         </td>

@@ -6,7 +6,7 @@
             {{ isset($post) ? 'Edit post' : 'Create post' }} 
         </div>
         <div class="card-body">
-            <form action="{{ isset($post) ? route('posts.update',$post->id) : route('posts.store') }}" method="POST"> 
+            <form action="{{ isset($post) ? route('posts.update',$post->id) : route('posts.store') }}" method="POST" enctype="multipart/form-data"> 
                 @csrf
                 @if (isset($post))
                     @method('PUT')
@@ -25,6 +25,14 @@
                 <div class="form-group">
                   <label for="content">content</label>
                   <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="category_id">category</label>
+                  <select class="form-control" name="category_id" id="category_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                    @endforeach
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="image">Upload image</label>

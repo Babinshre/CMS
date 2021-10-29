@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Posts\CreatePostRequest;
+use App\Http\Requests\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -36,9 +36,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
         //upload the image to storage
+        // $image = $request->image->store('posts');
         $image = $request->image->store('posts');
         //create the post
         /* by this method we should make fillable property
@@ -59,7 +60,7 @@ class PostController extends Controller
         //flash the message
         session()->flash('success','New Post created successfully');
         //redirect the user
-        return redirect(route('Posts.index'));
+        return redirect(route('posts.index'));
     }
 
     /**
