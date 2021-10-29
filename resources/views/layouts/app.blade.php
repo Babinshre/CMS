@@ -78,14 +78,24 @@
         <main class="py-4">
             @auth
                 <div class="container">
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <a href="">Category</a>
+                                    <a href="{{ route('categories.index') }}">Category</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="">Posts</a>
+                                    <a href="{{ route('posts.index') }}">Posts</a>
+                                </li>
+                            </ul>
+                            <ul class="list-group mt-5">
+                                <li class="list-group-item">
+                                    {{-- <a href="{{ route('trashed-post.index') }}">Trashed Post</a> --}}
                                 </li>
                             </ul>
                         </div>
@@ -99,5 +109,6 @@
             @endauth
         </main>
     </div>
+    @yield('scripts')
 </body>
 </html>

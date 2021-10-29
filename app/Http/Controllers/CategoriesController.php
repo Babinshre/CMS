@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\categories\CreateCategoryRequest;
+use App\Http\Requests\categories\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 class CategoriesController extends Controller
@@ -32,18 +34,16 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
-        $this->validate($request,[
-            'title' => 'required|unique:Categories'  //making name categories unique in table  
-        ]);
 
         // Category::create([                 //or we can use new category
         //     'title' => $request->name
         // ]);
-        $category =new Category();
+        $category = new Category();
         $category->title = $request->title;
         $category->save();
+        session()->flash('success','Category created successfully');
         return redirect(route('categories.index'));
     }
 
@@ -64,9 +64,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category) //dynamic route model binding auto category_id find hunxa
     {
-        //
+        return view('categories.create')->with('category',$category); //shortcut
     }
 
     /**
@@ -76,9 +76,12 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $category->title = $request->title;
+        $category->save();
+        session()->flash('success','Category updated successfully');
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -87,8 +90,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        session()->flash('success','Category is deleted successfully');
+        return redirect(route('categories.index'));
     }
 }
