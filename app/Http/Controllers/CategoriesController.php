@@ -76,8 +76,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
+        $category = Category::find($id);
         $category->title = $request->title;
         $category->save();
         session()->flash('success','Category updated successfully');

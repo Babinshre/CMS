@@ -36,7 +36,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreatePostRequest $request)
+    public function store(Request $request)
     {
         //upload the image to storage
         $image = $request->image->store('posts');
