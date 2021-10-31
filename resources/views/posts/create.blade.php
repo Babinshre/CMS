@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
+@endsection
 @section('content')
     <div class="card card-default">
         <div class="card-header">
@@ -24,7 +27,8 @@
                 </div>
                 <div class="form-group">
                   <label for="content">content</label>
-                  <textarea class="form-control" name="content" id="content" rows="3"></textarea>
+                    <input id="content" type="hidden" name="content">
+                    <trix-editor input="content"></trix-editor>
                 </div>
                 <div class="form-group">
                   <label for="category_id">category</label>
@@ -46,4 +50,7 @@
             </form>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
 @endsection
