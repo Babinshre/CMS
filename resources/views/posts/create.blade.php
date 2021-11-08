@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" type="text/css"/>
 @endsection
 @section('content')
     <div class="card card-default">
@@ -23,25 +25,55 @@
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                  <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                  <textarea class="form-control" name="description" id="description" rows="3" value="{{ isset($post) ? $post->description : ' ' }}"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="category_id">Category</label>
+                  <select class="form-control" name="category_id" id="category_id">
+                    @foreach ($categories as $category)
+                     <option value="{{$category->id}}">{{ $category->title }}</option>
+                    @endforeach
+                </select>
                 </div>
                 <div class="form-group">
                   <label for="content">content</label>
-                    <input id="content" type="hidden" name="content">
+                    <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : ' ' }}">
                     <trix-editor input="content"></trix-editor>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                   <label for="category_id">category</label>
                   <select class="form-control" name="category_id" id="category_id">
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->title }}</option>
                     @endforeach
                   </select>
-                </div>
+                </div> --}}
                 <div class="form-group">
                   <label for="image">Upload image</label>
                   <input type="file" class="form-control-file" name="image" id="image" placeholder="" aria-describedby="fileHelpId">
                 </div>
+                @if(isset($post))
+                    <div class="form-group">
+                    <img src="{{asset($post->image)}}" alt="" style="width: 100%">
+                    </div>
+                @endif
+                <div class="form-group">
+                  <label for="published_at">published_at</label>
+                  <input type="text" name="published_at" id="published_at" class="form-control" placeholder="" aria-describedby="helpId">
+                </div>
+                {{-- this is nepali date picker demo --}}
+                {{-- <p>
+                    <input type="text" id="nepali-datepicker" placeholder="Select Nepali Date"/>
+                </p>
+          
+                <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v3.7.min.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                    window.onload = function() {
+                        var mainInput = document.getElementById("nepali-datepicker");
+                        mainInput.nepaliDatePicker();
+                    };
+                </script> --}}
+
                 <div class="form-group">
                     <button class="btn btn-success">
                         {{ isset($post) ? 'Update' : 'Add post' }}
@@ -52,5 +84,10 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v3.7.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr('#published_at');
+    </script>
 @endsection
