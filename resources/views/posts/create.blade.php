@@ -25,13 +25,17 @@
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                  <textarea class="form-control" name="description" id="description" rows="3" value="{{ isset($post) ? $post->description : ' ' }}"></textarea>
+                  <textarea class="form-control" name="description" id="description" rows="3">{{ isset($post) ? $post->description : ' ' }}</textarea>
                 </div>
                 <div class="form-group">
                   <label for="category_id">Category</label>
                   <select class="form-control" name="category_id" id="category_id">
                     @foreach ($categories as $category)
-                     <option value="{{$category->id}}">{{ $category->title }}</option>
+                        @if (isset($post))
+                        <option  {{ $post->category_id == $category->id ? 'selected' : '' }}  value="{{$category->id}}">{{ $category->title }}</option>
+                        @else
+                        <option value="{{$category->id}}">{{ $category->title }}</option>
+                        @endif
                     @endforeach
                 </select>
                 </div>
@@ -40,14 +44,6 @@
                     <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : ' ' }}">
                     <trix-editor input="content"></trix-editor>
                 </div>
-                {{-- <div class="form-group">
-                  <label for="category_id">category</label>
-                  <select class="form-control" name="category_id" id="category_id">
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->title }}</option>
-                    @endforeach
-                  </select>
-                </div> --}}
                 <div class="form-group">
                   <label for="image">Upload image</label>
                   <input type="file" class="form-control-file" name="image" id="image" placeholder="" aria-describedby="fileHelpId">
@@ -59,7 +55,7 @@
                 @endif
                 <div class="form-group">
                   <label for="published_at">published_at</label>
-                  <input type="text" name="published_at" id="published_at" class="form-control" placeholder="" aria-describedby="helpId">
+                  <input type="text" name="published_at" id="published_at" class="form-control" placeholder="" aria-describedby="helpId" value="{{ isset($post) ? $post->published_at : ' ' }}">
                 </div>
                 {{-- this is nepali date picker demo --}}
                 {{-- <p>
