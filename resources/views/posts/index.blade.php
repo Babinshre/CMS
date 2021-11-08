@@ -20,7 +20,15 @@
                             <img src="{{asset('storage/'.$post->image)}}" width="120px" alt="img">
                         </td>
                         <td>{{ $post->title }}</td>
-                            @if (!$post->trashed())
+                            @if ($post->trashed())
+                                <td>
+                                    <form action="{{ route('restore-post',$post->id) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm btn-info" type="submit">Restore</button>
+                                    </form>
+                                </td>
+                            @else
                                 <td><a type="button" href="{{ route('posts.edit',$post->id) }}" class="btn btn-sm btn-info" type="submit">Edit</a></td>
                             @endif
                         <td>

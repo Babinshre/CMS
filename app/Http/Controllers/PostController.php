@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -93,9 +94,19 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->only(['title','description','content','category_id','image']);
+        if($request->hasFile('image')){
+            //store to storage
+            $image = $request->image->store('posts');
+            //delete old image
+            $post->deleteImage();
+            $data['image'] = $image;
+        }
+        $post->update($data);
+        session()->flash('success','Post updated successfully');
+        return redirect()->back();
     }
 
     /**
@@ -108,7 +119,7 @@ class PostController extends Controller
     {
         $Post = Post::withTrashed()->where('id',$id)->firstOrFail();//$Post = Post::withTrashed()->find($id);
         if ($Post->trashed()) {
-            Storage::delete($Post->image);
+            $Post->deleteImage();
             $Post->forceDelete();
             session()->flash('success','Post deleted successfully');
         }
@@ -128,5 +139,12 @@ class PostController extends Controller
         $posts = Post::onlyTrashed()->get();
         return view('posts.index')->with('posts',$posts);
         // return view('posts.index',compact('posts'));
+    }
+    public function restorePost($id)
+    {
+        $post = Post::withTrashed()->find($id);
+        $post->restore();
+        session()->flash('success','Post has been restored successfully');
+        return redirect()->back();
     }
 }

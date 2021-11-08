@@ -46,13 +46,13 @@
                 </div>
                 <div class="form-group">
                   <label for="image">Upload image</label>
+                  @if(isset($post))
+                      <div class="form-group">
+                      <img src="{{ asset('storage/'.$post->image) }}" alt="kan" style="width: 20%">
+                      </div>
+                  @endif
                   <input type="file" class="form-control-file" name="image" id="image" placeholder="" aria-describedby="fileHelpId">
                 </div>
-                @if(isset($post))
-                    <div class="form-group">
-                    <img src="{{asset($post->image)}}" alt="" style="width: 100%">
-                    </div>
-                @endif
                 <div class="form-group">
                   <label for="published_at">published_at</label>
                   <input type="text" name="published_at" id="published_at" class="form-control" placeholder="" aria-describedby="helpId" value="{{ isset($post) ? $post->published_at : ' ' }}">
