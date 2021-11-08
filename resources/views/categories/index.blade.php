@@ -10,6 +10,7 @@
             <table class="table">
                 <thead>
                     <th>Name</th>
+                    <th>Post count</th>
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
@@ -17,6 +18,7 @@
                             <td>
                                 {{ $category->title }}
                             </td>
+                            <td>{{ $category->posts->count() }}</td>
                             <td>
                                 {{-- passing categories/{category->id}/edit --}}
                                 <a class="btn btn-info btn-sm" href="{{ route('categories.edit',$category->id) }}">Edit</a> 
