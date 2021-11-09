@@ -116,6 +116,9 @@ class PostController extends Controller
             $post->deleteImage();
             $data['image'] = $image;
         }
+        if($request->tags){
+            $post->tags()->sync($request->tags);
+        }
         $post->update($data);
         session()->flash('success','Post updated successfully');
         return redirect()->back();

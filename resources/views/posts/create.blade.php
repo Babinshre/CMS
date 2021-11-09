@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" type="text/css"/>
@@ -47,7 +48,7 @@
                 @if ($tags->count()>0)
                     <div class="form-group">
                         <label for="tags">Tags</label>
-                        <select class="form-control" name="tags[]" id="tags" multiple>
+                        <select class="form-control tags-selector" name="tags[]" id="tags" multiple>
                         @foreach ($tags as $tag)
                             <option value="{{ $tag->id }}"
                                 @if (isset($post))
@@ -55,8 +56,7 @@
                                         selected
                                     @endif
                                 @endif
-                                
-                                >
+                               >
                                 {{ $tag->title }}
                             </option>
                         @endforeach
@@ -102,7 +102,12 @@
     <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v3.7.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         flatpickr('#published_at');
+        $(document).ready(function() {
+            $('.tags-selector').select2();
+        });
     </script>
+
 @endsection

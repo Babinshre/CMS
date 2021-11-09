@@ -92,6 +92,10 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        if($tag->posts->count()>0){
+            session()->flash('error','This Tag has some post associated');
+            return redirect()->back();
+        }
         $tag->delete();
         session()->flash('success','Tag is deleted successfully');
         return redirect(route('tags.index'));
