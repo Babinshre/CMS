@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+
+    //constructor to use middleware for only create and store method
+    public function __construct()
+    {
+        $this->middleware('VerifyCategoriesCount')->only(['create','store']);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
