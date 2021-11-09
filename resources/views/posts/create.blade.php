@@ -44,6 +44,25 @@
                     <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : ' ' }}">
                     <trix-editor input="content"></trix-editor>
                 </div>
+                @if ($tags->count()>0)
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <select class="form-control" name="tags[]" id="tags" multiple>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}"
+                                @if (isset($post))
+                                    @if ($post->hasTag($tag->id))
+                                        selected
+                                    @endif
+                                @endif
+                                
+                                >
+                                {{ $tag->title }}
+                            </option>
+                        @endforeach
+                        </select>
+                  </div>
+                @endif
                 <div class="form-group">
                   <label for="image">Upload image</label>
                   @if(isset($post))

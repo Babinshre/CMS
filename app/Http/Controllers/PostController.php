@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('categories',Category::all());
+        return view('posts.create')->with('categories',Category::all())->with('tags',Tag::all());
     }
 
     /**
@@ -66,6 +67,9 @@ class PostController extends Controller
         $post->image = $image;
         $post->category_id = $request->category_id;
         $post->save();
+        if($request->tags){
+            $post->tags()->attach($request->tags);
+        }
         //flash the message
         session()->flash('success','New Post created successfully');
         //redirect the user
@@ -91,7 +95,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post',$post)->with('categories',Category::all());
+        return view('posts.create')->with('post',$post)->with('categories',Category::all())->with('tags',Tag::all());
 
     }
 
