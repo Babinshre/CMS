@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('posts', PostController::class); 
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    
+    Route::get('users', [UsersController::class,'index'])->name('users.index');
+    Route::get('users/profile', [UsersController::class,'edit'])->name('user.edit-profile');
+    Route::put('users/profile', [UsersController::class,'update'])->name('user.update-profile');
+    Route::post('users/{user}/make-admin', [UsersController::class,'makeAdmin'])->name('user.make-admin');
+});
 
