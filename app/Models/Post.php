@@ -14,7 +14,7 @@ class Post extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'title','description','content','category_id','image','published_at'
+        'title','description','content','category_id','image','published_at','user_id'
     ];
     public function category()
     {
@@ -37,5 +37,14 @@ class Post extends Model
     public function hasTag($tagId)
     {
         return in_array($tagId, $this->tags->pluck('id')->toArray());
+    }
+    /**
+     * Get the user that owns the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

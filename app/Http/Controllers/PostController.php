@@ -66,6 +66,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->image = $image;
         $post->category_id = $request->category_id;
+        $post->user_id = auth()->user()->id;
         $post->save();
         if($request->tags){
             $post->tags()->attach($request->tags);

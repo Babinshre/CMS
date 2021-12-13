@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Blog\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +18,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class,'index'])->name('welcome');
+Route::get('blog/posts/{post}', [PostsController::class,'show'])->name('blog.show');
 
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
