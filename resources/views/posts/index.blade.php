@@ -18,7 +18,7 @@
                 @foreach ($posts as $post)
                     <tr>
                         <td>
-                            <img src="{{secure_asset('storage/'.$post->image)}}" width="120px" alt="img">
+                            <img src="{{secure_asset('public/storage/'.$post->image)}}" width="120px" alt="img">
                         </td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->category->title }}</td>
