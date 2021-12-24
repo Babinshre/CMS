@@ -11,8 +11,8 @@
     </title>
 
     <!-- Styles -->
-    <link href="{{ secure_asset('css/page.min.css') }}" rel="stylesheet">
-    <link href="{{ secure_asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('public/css/page.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('public/css/style.css') }}" rel="stylesheet">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}">
