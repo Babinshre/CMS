@@ -33,7 +33,7 @@
             {{-- <img class="logo-dark" src="{{ asset('img/logo-dark.png') }}" alt="logo">
             <img class="logo-light" src="{{ asset('img/logo-light.png') }}" alt="logo"> --}}
             {{-- the text logo --}}
-            <h4><span style="color: rgb(226, 225, 225)">BLOG</span> <span style="color: rgb(176, 244, 253)">life</span></h4>
+            <h4><span style="color: rgb(226, 225, 225)">BLOOG</span> <span style="color: rgb(176, 244, 253)">life</span></h4>
           </a>
         </div>
 

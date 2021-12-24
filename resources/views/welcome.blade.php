@@ -1,6 +1,6 @@
 @extends('layouts.blog')
 @section('title')
-    BlogLife
+    BloogLife
 @endsection
 
 @section('header')
